@@ -16,17 +16,13 @@ from components.workspace import render_workspace
 
 st.set_page_config(page_title="Readora AI", page_icon="📚", layout="wide", initial_sidebar_state="expanded")
 
-# Looks in assets/ first, then the FrontEnd root, and tolerates a slightly
-# different filename/extension/casing — see find_logo_path() in utils.py.
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# FrontEnd/app.py sits one level below the repo root — add the root to
-# sys.path so "backend" is importable as a package.
 project_root = os.path.dirname(current_dir)
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+backend_dir = os.path.join(project_root, "backend")
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
 
-from backend.app.main import app as fastapi_app  # noqa: E402  (needs sys.path fix above first)
+from app.main import app as fastapi_app  # noqa: E402  (matches main.py's own "app.*" scheme — avoids the backend.app vs app duplicate-import loop)
 
 
 def _start_backend():
@@ -42,9 +38,6 @@ logo_b64 = get_image_base64(logo_path)
 if logo_b64:
     logo_src = f"data:image/jpeg;base64,{logo_b64}"
 else:
-    # Local inline fallback — a plain "R" badge that never depends on an
-    # external network call, unlike the old placeholder.com URL (which is
-    # what was silently failing and leaving the icon/background blank).
     logo_src = (
         "data:image/svg+xml;utf8,"
         "<svg xmlns='http://www.w3.org/2000/svg' width='45' height='45'>"
