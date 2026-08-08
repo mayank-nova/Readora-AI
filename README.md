@@ -1,68 +1,91 @@
-# READEASE-AI
-ReadEase AI is an AI-powered reading assistant for neurodivergent learners. It simplifies complex text, supports dyslexia-friendly reading with customizable accessibility features, and helps students better understand educational content through an inclusive, AI-driven learning experience.
+# Readora AI
 
-✨ Features
-📄 PDF Upload & Text Extraction
-Upload educational PDFs and extract readable text.
-🤖 AI Text Simplification
-Convert complex passages into easier-to-understand language while preserving the original meaning.
-🎧 Text-to-Speech
-Read extracted text aloud to support different learning styles.
-🎨 Reading Customization
-Adjustable font size
-Dyslexia-friendly fonts
-Line spacing controls
-Background color themes
-💡 Explain This
-Click on any word or phrase to receive a simple AI-generated explanation.
-📚 Side-by-Side Reader
-View the original and simplified versions of the text simultaneously.
+Readora AI is an accessibility-first reading assistant built for dyslexic, ADHD, and neurodivergent learners. It transforms dense academic text and scanned PDFs into clean, digestible prose using custom typography, parallel AI text simplification, and synchronized word-by-word text-to-speech narration.
 
+Developed for the **IncludEDU Neurodiversity Hackathon 2026**.
 
-🛠️ Tech Stack
+---
 
-Frontend
+## ✨ Key Features
 
-React.js
-HTML5
-CSS3
-JavaScript
+* **⚡ Parallel Multi-Key Processing:** Utilizes a custom multi-account Groq API key pooling and rotation system to process large documents and scanned pages simultaneously without hitting rate limits.
+* **📄 Smart PDF & Vision OCR:** Instantly extracts text from native digital PDFs or runs asynchronous Vision OCR on scanned/photo-based PDFs using PyMuPDF (`fitz`).
+* **🤖 AI Text Simplification:** Breaks down complex, jargon-heavy paragraphs into clear, literal sentences tailored for different reading levels, alongside an auto-generated vocabulary list.
+* **🔊 Synchronized Text-to-Speech:** Features an interactive audio reader with real-time word-by-word highlighting and a keep-alive engine to ensure smooth, uninterrupted playback.
+* **🎨 Custom Accessibility Layout:** Styled with the *OpenDyslexic* typeface, adjustable line-spacing controls, custom font-sizing sliders, and a low-sensory paper reading pane.
+* **📚 Persistent Workspace:** Secure local authentication with persistent document history and profile picture management backed by SQLite.
 
-Backend
+---
 
-Python
-FastAPI
+## 🛠️ Tech Stack
 
-AI
+* **Frontend:** Streamlit, HTML5, CSS3, JavaScript, Custom UI Components
+* **Backend:** Python, FastAPI, Uvicorn, Asynchronous Concurrency (`asyncio`)
+* **AI & OCR:** Groq API (`llama-3.1-8b-instant`, Vision models), PyMuPDF (`fitz`)
+* **Database:** SQLite (`users.db`)
 
-OpenAI API
+---
 
-PDF Processing
+## 📂 Project Structure
 
-PyMuPDF / pdfplumber
-📂 Project Structure
-ReadEase-AI/
-│
-├── frontend/
+\`\`\`text
+Readora-AI/
 ├── backend/
-├── assets/
-├── docs/
-└── README.md
-🚀 Getting Started
-Clone the repository.
-Install the required dependencies.
-Configure the AI API key.
-Start the backend server.
-Start the frontend.
-Open the application in your browser.
-🎯 Project Goal
+│   ├── app/
+│   │   ├── routes/
+│   │   └── services/
+│   ├── main.py
+│   └── database.py
+├── FrontEnd/
+│   ├── components/
+│   ├── assets/
+│   ├── app.py
+│   ├── styles.py
+│   └── utils.py
+├── run.py
+└── requirements.txt
+\`\`\`
 
-Our goal is to create an inclusive reading assistant that reduces cognitive load and makes educational content more accessible for neurodivergent learners. By combining AI-powered text adaptation with accessibility-focused design, ReadEase AI aims to improve reading comprehension and create a more personalized learning experience.
+---
 
-👥 Team
+## 🚀 Getting Started
 
-Developed as part of the IncludEDU Neurodiversity Hackathon 2026.
+**1. Clone the repository:**
 
-📄 License
+\`\`\`bash
+git clone https://github.com/mayank-nova/Readora-AI.git
+cd Readora-AI
+\`\`\`
+
+**2. Install dependencies:**
+
+\`\`\`bash
+pip install -r requirements.txt
+\`\`\`
+
+**3. Configure your API keys:**
+
+Create a `.env` file inside the `backend/` directory and add your Groq API keys:
+
+\`\`\`
+GROQ_API_KEY_1=gsk_...
+GROQ_API_KEY_2=gsk_...
+\`\`\`
+
+**4. Run the application:**
+
+\`\`\`bash
+python run.py
+\`\`\`
+
+This will automatically launch both the FastAPI backend server and the Streamlit frontend.
+
+---
+
+## 👥 Team
+
+Created by the engineering team from NSUT for the IncludEDU Neurodiversity Hackathon 2026.
+
+## 📄 License
 
 This project is intended for educational and hackathon purposes.
