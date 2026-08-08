@@ -1,6 +1,9 @@
 import os
+import sys
+import threading
 
 import streamlit as st
+import uvicorn
 
 from utils import get_image_base64, find_logo_path
 from session import init_session_state
@@ -16,6 +19,24 @@ st.set_page_config(page_title="Readora AI", page_icon="📚", layout="wide", ini
 # Looks in assets/ first, then the FrontEnd root, and tolerates a slightly
 # different filename/extension/casing — see find_logo_path() in utils.py.
 current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# FrontEnd/app.py sits one level below the repo root — add the root to
+# sys.path so "backend" is importable as a package.
+project_root = os.path.dirname(current_dir)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+from backend.main import app as fastapi_app  # noqa: E402  (needs sys.path fix above first)
+
+
+def _start_backend():
+    uvicorn.run(fastapi_app, host="127.0.0.1", port=8000, log_level="warning")
+
+
+if "backend_started" not in st.session_state:
+    threading.Thread(target=_start_backend, daemon=True).start()
+    st.session_state["backend_started"] = True
+
 logo_path = find_logo_path(current_dir)
 logo_b64 = get_image_base64(logo_path)
 if logo_b64:
