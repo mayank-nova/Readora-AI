@@ -1,0 +1,18 @@
+# API Keys & Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Databases
+*.sqlite3
+*.db
+users.db
+backend/users.db
+backend/readora.db
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
